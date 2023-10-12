@@ -1,0 +1,47 @@
+Slides com história do sistema operacional e características (multitarefa, usuário, etc...)
+VirtualBox com SO funcionando (1 a 2 minutos)
+-------------------------------------------------------------
+
+https://diolinux.com.br/noticias/debian-12-bookworm-firmware-nao-livre.html#:~:text=O%20tempo%20de%20suporte%20das,dever%C3%A1%20permanecer%20ativo%20at%C3%A9%202028.
+
+
+O Debian é um sistema operacional baseado em Linux/FreeBSD que surgiu em agosto de 1993 por Ian Murdock. Seu nome vem da junção dos nomes do criador (Ian) e sua esposa (Debra).
+
+Seu objetivo inicial era ser uma distribuição totalmente baseada em princípios de software livre e desenvolvimento colaborativo (Como o GNU e Linux).
+
+Seu desenvolvimento foi sempre baseado em 3 pilares: Compromisso com Software Livre, Desenvolvimento democrático e estabilidade. Sua segurança e estabilidade permitiu que se tornasse porpular para servidores e outros projetos de software livre.
+
+
+O debian possui o famoso sistema de gestão de pacotes (APT), mas com o formato .deb. 
+
+Debian é uma das distribuições mais antigas Linux. É considerado "o pai de todos", visto que foi base para diversas outras distribuições, como Ubuntu e Linux Mint.
+
+Toda versão lançada possui um número e um codinome. Os números são sequenciais e os nomes são derivados dos personagens do filme Toy Story.
+
+
+O Debian se tornou a única distribuição que é aberta para todos os desenvolvedores e usuários somarem seus trabalhos. Também é o único grande projeto que definiu suas próprias regras e políticas que ajudam a organizá-lo. Para receber alta qualidade e mantê-la, há muitos regulamentos, automatismos e documentos que descrevem partes do sistema. O Debian também se tornou a única distribuição que tem um detalhado mecanismo de dependências e outras relações entre pacotes.
+
+
+Debian 12 (Bookworm) - Lançado em Junho de 2023.
+
+
+Debian adere estritamente a princípios de software livre e código aberto. Isso significa que ele não inclui drivers, codecs e programas proprietários por padrão. No entanto, esses componentes podem ser instalados posteriormente, se necessário.
+
+O Debian pode executar diversos jogos em ferramentas como Wine, mas o Windows ainda é líder por ter suporte direto da indústria.
+
+Como o windows é um dos sistemas operacionais mais utilizados, a grande maioria dos softwares são desenvolvidos com ele em mente.
+
+
+
+
+Referências:
+
+https://www.debian.org/doc/manuals/project-history/project-history.pt.pdf
+
+https://info.wsouza.com.br/2019/07/debian-curiosidades-informacoes-suas-versoes-e-ciclo-de-vida.html
+
+https://sempreupdate.com.br/a-historia-do-debian-a-jornada-do-sistema-operacional-livre/
+
+https://www.debian.org/intro/about.pt.html#:~:text=O%20Debian%20foi%20concebido%20para,)%20e%20usu%C3%A1rios(as).
+
+https://www.debian.org/News/2023/20230610
