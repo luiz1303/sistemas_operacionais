@@ -1,8 +1,3 @@
-/*
-Aluno: Luiz Ricardo Brumati De Lima
-RA: a2155184
-*/
-
 #include <omp.h>
 
 #include <fstream>
