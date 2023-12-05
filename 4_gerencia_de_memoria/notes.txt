@@ -1,0 +1,24 @@
+Testar em:
+https://nicomedes.assistedcoding.eu/#/app/os/page_replacement
+
+
+Exemplos de Input:
+--------------------------------------
+0 2 1 6 4 0 1 0 3 1 2 1
+021640103121
+--------------------------------------
+7 0 1 2 0 3 0 4 2 3
+7012030423
+--------------------------------------
+7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1
+70120304230321201701
+
+
+links ---------------------------------
+https://www.baeldung.com/cs/fifo-page-replacement#:~:text=A%20page%20fault%20occurs%20when,processes%20run%20in%20the%20background.
+https://prepinsta.com/operating-systems/page-replacement-algorithms/fifo/fifo-in-c-plus-plus/
+
+
+optimal:
+https://www.baeldung.com/cs/optimal-page-replacement-algorithm
+https://prepinsta.com/operating-systems/page-replacement-algorithms/optimal-page-replacement/optimal-page-replacement-in-c-plus-plus/
