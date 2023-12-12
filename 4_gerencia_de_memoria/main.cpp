@@ -9,7 +9,7 @@ substituição de páginas: FIFO, LRU e Ótimo.
 ---------------------------------------------------------
 -> Unordered Sets auxiliares foram utilizados para permitir
 a rápida verificação de existência de um elemento na memória,
-visto que sua complexidade de tempo é O(1) e, no pior caso, O(n).
+visto que sua complexidade de tempo é constante e, no pior caso, linear.
 ---------------------------------------------------------
 Entrada por linha de comando:
 ./main.exe <framesize> <input>
@@ -37,13 +37,46 @@ bool isElementInMemory(char element, unordered_set<char> set) {
     return set.find(element) != set.end();
 }
 
+void printQueueIndexes(queue<char> indexes, int framesize) {
+    queue<char> aux = indexes;
+    while (aux.size() < framesize) {
+        aux.push('-');
+    }
+    while (!aux.empty()) {
+        cout << aux.front() << "\t";
+        aux.pop();
+    }
+}
+
+void printListIndexes(list<char> indexes, int framesize) {
+    list<char> aux = indexes;
+    while (aux.size() < framesize) {
+        aux.push_back('-');
+    }
+    while (!aux.empty()) {
+        cout << aux.front() << "\t";
+        aux.pop_front();
+    }
+}
+
 /* FIFO - First In First Out */
 pair<int, int> runFIFO(int framesize, char* input) {
     int hits = 0, pageFaults = 0;
     unordered_set<char> set;
     queue<char> indexes;
 
+    cout << YELLOW_TEXT
+         << "\nFIFO ----------------------------------------------"
+         << DEFAULT_TEXT << endl;
+    cout << "Incoming \t";
+    for (int i = 0; i < framesize; i++) {
+        cout << "Frame " << i + 1 << "\t";
+    }
+    cout << endl;
+
     for (int it = 0; it < strlen(input); it++) {
+        cout << input[it] << "\t\t";
+
         if (!isElementInMemory(input[it], set)) {
             if (set.size() < framesize) {
                 set.insert(input[it]);
@@ -55,9 +88,13 @@ pair<int, int> runFIFO(int framesize, char* input) {
                 indexes.push(input[it]);
             }
             pageFaults++;
+            printQueueIndexes(indexes, framesize);
+            cout << "PageFault";
         } else {
             hits++;
+            printQueueIndexes(indexes, framesize);
         }
+        cout << endl;
     }
     return make_pair(hits, pageFaults);
 }
@@ -68,7 +105,17 @@ pair<int, int> runLRU(int framesize, char* input) {
     unordered_set<char> set;
     list<char> indexes;
 
+    cout << YELLOW_TEXT
+         << "\nLRU ----------------------------------------------"
+         << DEFAULT_TEXT << endl;
+    for (int i = 0; i < framesize; i++) {
+        cout << "Frame " << i + 1 << "\t";
+    }
+    cout << endl;
+
     for (int it = 0; it < strlen(input); it++) {
+        cout << input[it] << "\t\t";
+
         if (!isElementInMemory(input[it], set)) {
             if (set.size() < framesize) {
                 set.insert(input[it]);
@@ -80,11 +127,15 @@ pair<int, int> runLRU(int framesize, char* input) {
                 indexes.push_front(input[it]);
             }
             pageFaults++;
+            printListIndexes(indexes, framesize);
+            cout << "PageFault";
         } else {
-            hits++;
             indexes.remove(input[it]);
             indexes.push_front(input[it]);
+            hits++;
+            printListIndexes(indexes, framesize);
         }
+        cout << endl;
     }
 
     return make_pair(hits, pageFaults);
@@ -106,6 +157,7 @@ int optimalPredict(char* input, unordered_set<char> set, int index) {
                 break;
             }
         }
+        // Página não referenciada
         if (it2 == strlen(input)) return *it;
     }
 
@@ -118,23 +170,38 @@ pair<int, int> runOptimal(int framesize, char* input) {
     unordered_set<char> set;
     list<char> indexes;
 
+    cout << YELLOW_TEXT
+         << "\nOptimal ----------------------------------------------"
+         << DEFAULT_TEXT << endl;
+    cout << "Incoming \t";
+    for (int i = 0; i < framesize; i++) {
+        cout << "Frame " << i + 1 << "\t";
+    }
+    cout << endl;
+
     for (int it = 0; it < strlen(input); it++) {
+        cout << input[it] << "\t\t";
+
         if (!isElementInMemory(input[it], set)) {
             if (set.size() < framesize) {
                 set.insert(input[it]);
                 indexes.push_front(input[it]);
-                pageFaults++;
+
             } else {
                 char predicted = optimalPredict(input, set, it + 1);
                 set.erase(predicted);
                 set.insert(input[it]);
                 indexes.remove(predicted);
                 indexes.push_front(input[it]);
-                pageFaults++;
             }
+            pageFaults++;
+            printListIndexes(indexes, framesize);
+            cout << "PageFault";
         } else {
             hits++;
+            printListIndexes(indexes, framesize);
         }
+        cout << endl;
     }
     return make_pair(hits, pageFaults);
 }
@@ -142,6 +209,7 @@ pair<int, int> runOptimal(int framesize, char* input) {
 int main(int argc, char* argv[]) {
     int framesize;
     char* input;
+    pair<int, int> result;
 
     if (argc == 3) {
         framesize = atoi(argv[1]);
@@ -151,17 +219,17 @@ int main(int argc, char* argv[]) {
         cout << "Input: " << input << endl;
         cout << "=====================" << endl;
 
-        cout << YELLOW_TEXT << "FIFO: " << DEFAULT_TEXT
-             << runFIFO(framesize, input).first << " hits e "
-             << runFIFO(framesize, input).second << " faults" << endl;
+        result = runFIFO(framesize, input);
+        cout << YELLOW_TEXT << "\nFIFO: " << DEFAULT_TEXT << result.first
+             << " hits/" << result.second << " faults" << endl;
 
-        cout << YELLOW_TEXT << "LRU: " << DEFAULT_TEXT
-             << runLRU(framesize, input).first << " hits e "
-             << runLRU(framesize, input).second << " faults" << endl;
+        result = runLRU(framesize, input);
+        cout << YELLOW_TEXT << "\nLRU: " << DEFAULT_TEXT << result.first
+             << " hits/" << result.second << " faults" << endl;
 
-        cout << YELLOW_TEXT << "OPTIMAL: " << DEFAULT_TEXT
-             << runOptimal(framesize, input).first << " hits e "
-             << runOptimal(framesize, input).second << " faults" << endl;
+        result = runOptimal(framesize, input);
+        cout << YELLOW_TEXT << "\nOPTIMAL: " << DEFAULT_TEXT << result.first
+             << " hits/" << result.second << " faults" << endl;
 
     } else {
         cout << "Uso: ./main.exe <framesize> <input>" << endl;

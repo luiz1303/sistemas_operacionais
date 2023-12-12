@@ -48,6 +48,8 @@
     "streambuf": "cpp",
     "typeinfo": "cpp",
     "fstream": "cpp",
-    "complex": "cpp"
+    "complex": "cpp",
+    "queue": "cpp",
+    "unordered_set": "cpp"
   }
 }
